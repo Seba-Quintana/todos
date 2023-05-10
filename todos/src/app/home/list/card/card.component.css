@@ -1,0 +1,25 @@
+#card-component{
+
+	width: 90%;
+	height: 20%;
+	border: 1pt solid black;
+	border-radius: 10pt;
+
+	margin: 4%
+
+
+
+}
+
+#card-component:hover{
+	background-color: antiquewhite;
+}
+
+
+#card-component-title{
+	display: flex;
+	justify-content: center;
+	border-bottom:  1pt solid black;
+	margin-top:  -1%;
+
+}
