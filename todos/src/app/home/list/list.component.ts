@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from "./card/card.component";
+import { CardComponent } from './card/card.component';
 
 @Component({
-	selector: 'app-list',
-	standalone: true,
-	template: `
+  selector: 'app-list',
+  standalone: true,
+  template: `
     <div id="list-component">
-		<header>
-			<h1>TITLE</h1>
-		</header>
-		    <app-card></app-card>
+      <header>
+        <h1>TITLE</h1>
+      </header>
+      <app-card></app-card>
+      <app-card></app-card>
+      <app-card></app-card>
+      <app-card></app-card>
 
-			<footer>
-				<input type="button"/>
-			</footer>
-
-</div>
+      <footer>
+        <input type="button" />
+      </footer>
+    </div>
   `,
-	styleUrls: ['./list.component.css'],
-	imports: [CommonModule, CardComponent]
+  styleUrls: ['./list.component.css'],
+  imports: [CommonModule, CardComponent],
 })
-export class ListComponent {
-
-}
+export class ListComponent {}
