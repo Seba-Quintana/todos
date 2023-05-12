@@ -1,25 +1,70 @@
-#card-component{
+#card-component {
+  width: 90%;
+  height: 20%;
+  border: 1pt solid black;
+  border-radius: 10pt;
+  overflow: hidden;
 
-	width: 90%;
-	height: 20%;
-	border: 1pt solid black;
-	border-radius: 10pt;
-
-	margin: 4%
-
-
-
+  margin: 4%;
+}
+#card-component::-webkit-scrollbar {
+  display: none;
 }
 
-#card-component:hover{
-	background-color: antiquewhite;
+#card-component-body-text::-webkit-scrollbar {
+  display: none;
 }
 
+#card-component-body-text:hover {
+  background-color: #a7c4d8;
+}
 
-#card-component-title{
-	display: flex;
-	justify-content: center;
-	border-bottom:  1pt solid black;
-	margin-top:  -1%;
+#card-component-title {
+  text-align: justify;
+  justify-content: center;
+  height: 30pt;
+  border-bottom: 1pt solid black;
+  background-color: #778899;
+}
 
+#card-component-body {
+  text-align: center;
+  width: auto;
+  height: auto;
+}
+#card-component-body-text {
+  padding: 0;
+  width: 100%;
+  min-height: 100pt;
+  overflow: auto;
+}
+
+#card-component-remove {
+  margin: 0;
+
+  float: left;
+  text-align: left;
+  color: black;
+  width: fit-content;
+  font-size: 1rem;
+  margin-left: 5%;
+
+  /* to disable selection */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+#card-component-remove:hover {
+  color: red;
+}
+
+#card-component-title-text {
+  margin: 0;
+  float: right;
+  text-align: center;
+  width: fit-content;
+  font-size: 1.5rem;
+  margin-right: 7pt;
+  margin-top: 7pt;
 }
