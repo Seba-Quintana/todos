@@ -1,7 +1,12 @@
 #home-component {
-	width: 100%;
-	height: 100%;
-
-
+	margin: 0;
+	width: 98vw;
+	height: 98vh;
 	border: 1pt solid black;
+}
+
+#lists {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
 }

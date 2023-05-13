@@ -10,8 +10,8 @@ import { CardInterface } from '../interfaces/cardInterface';
   standalone: true,
   template: `
     <div id="home-component">
-      <section>
-        <app-list *ngFor="let listsData of todoLists" [list]="listsData">
+      <section id="lists">
+        <app-list class="app-lists" *ngFor="let listsData of todoLists" [list]="listsData">
         </app-list>
       </section>
     </div>
