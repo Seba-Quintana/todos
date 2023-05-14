@@ -13,7 +13,7 @@ import { CardInterface } from '../interfaces/cardInterface';
       <section id="lists">
         <app-list id="list-component" class="app-lists" *ngFor="let listsData of todoLists" [list]="listsData">
         </app-list>
-		<input id="add-list" type="button" value="+ new list" />
+		<input id="add-list" type="button" value="+ new list"  (click)="createList()"/>
       </section>
     </div>
   `,
@@ -32,5 +32,14 @@ export class HomeComponent {
       console.log(this.todoLists);
       console.log('');
     });
+  }
+
+
+
+  createList() {
+    const newList: ListInterface = { id: this.todoLists.length + 1, name: "List Title", cards: [] };
+    this.todoLists.push(newList);
+
+
   }
 }

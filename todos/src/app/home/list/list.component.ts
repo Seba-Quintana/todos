@@ -10,7 +10,10 @@ import { todoService } from 'src/app/service/todoService';
   standalone: true,
   template: `
     <div id="list-component">
-      <h1>TITLE</h1>
+      <div id="list-component-title">
+        <input type="text" id="list-component-title-text" placeholder="List Title" (focusout)="changeTitleText()" >
+      </div>
+
 	  <div id="card">
         <app-card *ngFor="let cardData of list.cards" [card]="cardData"></app-card>
 	  </div>
@@ -26,10 +29,31 @@ export class ListComponent {
   @Input() list!: ListInterface;
   service: todoService = Inject(todoService);
 
+  titleState = true
+
+
+
   postCard() {
-	const newCard: CardInterface = { id: 50, title: 'New Card', content: 'New Card Text' };
+    const newCard: CardInterface = { id: 50, title: 'New Card', content: 'New Card Text' };
     this.list.cards.push(newCard);
-	return this.service.postCard(newCard);
+    this.service.postCard(this.list, newCard);
   }
+
+
+  checkTitleState() {
+    return this.titleState;
+  }
+
+  changeTitleState() {
+    var aux = !this.changeTitleState
+    this.titleState = aux
+  }
+
+  changeTitleText() {
+    var a = (<HTMLInputElement>document.getElementById("list-component-title-text")).value;
+
+    console.log(a)
+  }
+
 
 }
