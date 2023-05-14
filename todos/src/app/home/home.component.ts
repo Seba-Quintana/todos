@@ -13,6 +13,7 @@ import { CardInterface } from '../interfaces/cardInterface';
       <section id="lists">
         <app-list id="list-component" class="app-lists" *ngFor="let listsData of todoLists" [list]="listsData">
         </app-list>
+		<input id="add-list" type="button" value="+ new list" />
       </section>
     </div>
   `,
