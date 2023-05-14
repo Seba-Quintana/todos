@@ -1,22 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from './card/card.component';
 import { ListInterface } from 'src/app/interfaces/listInterface';
 import { CardInterface } from 'src/app/interfaces/cardInterface';
+import { todoService } from 'src/app/service/todoService';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   template: `
     <div id="list-component">
-      <header>
-        <h1>TITLE</h1>
-      </header>
+      <div id="list-component-title">
+        <input type="text" id="list-component-title-text" placeholder="List Title" (focusout)="changeTitleText()" >
+      </div>
+
 	  <div id="card">
-      	<app-card *ngFor="let cardData of list.cards" [card]="cardData"></app-card>
-		</div>
+        <app-card *ngFor="let cardData of list.cards" [card]="cardData"></app-card>
+	  </div>
       <footer>
-        <input id="add-card" type="button" value="+ new card" />
+    	<input id="add-card" type="button" value="+ new card" (click)="postCard()" />
       </footer>
     </div>
   `,
@@ -25,6 +27,33 @@ import { CardInterface } from 'src/app/interfaces/cardInterface';
 })
 export class ListComponent {
   @Input() list!: ListInterface;
+  service: todoService = Inject(todoService);
+
+  titleState = true
+
+
+
+  postCard() {
+    const newCard: CardInterface = { id: 50, title: 'New Card', content: 'New Card Text' };
+    this.list.cards.push(newCard);
+    this.service.postCard(this.list, newCard);
+  }
+
+
+  checkTitleState() {
+    return this.titleState;
+  }
+
+  changeTitleState() {
+    var aux = !this.changeTitleState
+    this.titleState = aux
+  }
+
+  changeTitleText() {
+    var a = (<HTMLInputElement>document.getElementById("list-component-title-text")).value;
+
+    console.log(a)
+  }
 
 
 }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ListInterface } from '../interfaces/listInterface';
+import { CardComponent } from '../home/list/card/card.component';
+import { CardInterface } from '../interfaces/cardInterface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +15,45 @@ export class todoService {
   }
   async getListByID(id: number): Promise<ListInterface> {
     return (await (await fetch(`${this.url}/${id}`)).json()) ?? {};
+  }
+
+  async postCard(list: ListInterface, card: CardInterface) {
+    return ((await fetch(`${this.url}/${list.id}`, {
+      method: 'POST',
+      body: JSON.stringify(card),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })));
+  }
+
+  async deleteCard(card: CardInterface): Promise<boolean> {
+    return (await (await fetch(this.url, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })).json());
+  }
+
+  async deleteData(list: ListInterface, card: CardInterface) {
+    fetch(`&{this.url}/${list.id}/${card.id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+  }
+
+  async updateListText(text: string, list: ListInterface) {
+    await fetch(`${this.url}/${list.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
+    })
   }
 }

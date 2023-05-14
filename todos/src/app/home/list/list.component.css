@@ -1,12 +1,61 @@
-
 #card {
-	height: 500px;
-	overflow: scroll;
+  height: 394pt;
+  overflow: scroll;
+}
+#card::-webkit-scrollbar {
+  display: none;
 }
 
 #add-card {
-	width: 100%;
+  width: 100%;
 }
-input:hover {
-	background-color: orange;
+#add-card:hover {
+  background-color: orange;
+}
+
+#add-list:hover {
+  background-color: orange;
+}
+
+#list-component-title {
+  margin: 0;
+
+  text-align: justify;
+  justify-content: center;
+  height: 30pt;
+  border-bottom: 1pt solid black;
+}
+
+#list-component-edit {
+  margin: 0;
+
+  float: left;
+  text-align: left;
+  color: black;
+  width: fit-content;
+  font-size: 1.2rem;
+  margin-left: 5%;
+  margin-top: 1%;
+  /* to disable selection */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+#list-component-edit:hover {
+  color: #4a5763;
+}
+
+#list-component-title-text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  text-align: center;
+  width: fit-content;
+  font-size: 1.5rem;
+  width: 100%;
+  background-color: #2f4f4f;
+  outline: 0;
+  color: #dfe1e3;
 }
