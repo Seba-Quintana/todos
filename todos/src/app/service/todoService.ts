@@ -27,7 +27,7 @@ export class todoService {
       }
     })));
   }
-
+  
   async deleteCard(card: CardInterface): Promise<boolean> {
     return (await (await fetch(this.url, {
       method: 'DELETE',

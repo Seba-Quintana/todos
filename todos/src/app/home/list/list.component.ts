@@ -4,6 +4,7 @@ import { CardComponent } from './card/card.component';
 import { ListInterface } from 'src/app/interfaces/listInterface';
 import { CardInterface } from 'src/app/interfaces/cardInterface';
 import { todoService } from 'src/app/service/todoService';
+import { TranslateListService } from 'src/app/service/translate-list.service';
 
 @Component({
   selector: 'app-list',
@@ -18,6 +19,7 @@ import { todoService } from 'src/app/service/todoService';
         <app-card *ngFor="let cardData of list.cards" [card]="cardData"></app-card>
 	  </div>
       <footer>
+      <button  (click)="translate()">Cambiar texto</button>
     	<input id="add-card" type="button" value="+ new card" (click)="postCard()" />
       </footer>
     </div>
@@ -27,18 +29,26 @@ import { todoService } from 'src/app/service/todoService';
 })
 export class ListComponent {
   @Input() list!: ListInterface;
-  service: todoService = Inject(todoService);
+  constructor(private service: todoService, private serviceTranslate: TranslateListService) {}
 
   titleState = true
+  
 
-
-
+  translate() {
+    for (let index = 0; index < this.list.cards.length; index++) {
+      let contentCard = this.list.cards[index].content;
+      let cardId = this.list.cards[index].id;
+      this.serviceTranslate.translateApi(contentCard,cardId).then((data) => {
+        this.list.cards[index].content = data;
+      });
+    }
+  }
+  
   postCard() {
     const newCard: CardInterface = { id: 50, title: 'New Card', content: 'New Card Text' };
     this.list.cards.push(newCard);
     this.service.postCard(this.list, newCard);
   }
-
 
   checkTitleState() {
     return this.titleState;
