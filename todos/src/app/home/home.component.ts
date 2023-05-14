@@ -11,7 +11,7 @@ import { CardInterface } from '../interfaces/cardInterface';
   template: `
     <div id="home-component">
       <section id="lists">
-        <app-list class="app-lists" *ngFor="let listsData of todoLists" [list]="listsData">
+        <app-list id="list-component" class="app-lists" *ngFor="let listsData of todoLists" [list]="listsData">
         </app-list>
       </section>
     </div>

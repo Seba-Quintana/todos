@@ -16,7 +16,7 @@ import { CardInterface } from 'src/app/interfaces/cardInterface';
       	<app-card *ngFor="let cardData of list.cards" [card]="cardData"></app-card>
 		</div>
       <footer>
-        <input type="button" />
+        <input id="add-card" type="button" value="+ new card" />
       </footer>
     </div>
   `,
