@@ -8,7 +8,7 @@ import { CardInterface } from 'src/app/interfaces/cardInterface';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div id="card-component">
+    <div id="card-component" *ngIf="state">
       <div id="card-component-title">
         <h3 id="card-component-remove" (click)="removeCard()">&#9746;</h3>
         <input type="text" id="card-component-title-text" placeholder="{{ this.card.title }}">
@@ -37,4 +37,6 @@ export class CardComponent {
     this.state = false;
     console.log(this.card.id)
   }
+
+
 }
