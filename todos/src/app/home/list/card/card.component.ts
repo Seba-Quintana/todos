@@ -28,10 +28,10 @@ export class CardComponent {
   @Input() card!: CardInterface;
 
   state = true;
-  id = "this.card.id";
+/*  id = "this.card.id";
   cardText = 'Aa';
 
-  cardTitle = 'aa';
+  cardTitle = 'aa';*/
 
   removeCard() {
     this.state = false;
