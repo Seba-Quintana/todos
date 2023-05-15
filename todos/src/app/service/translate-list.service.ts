@@ -24,7 +24,6 @@ export class TranslateListService {
     const responseData = await response.text();
     try {
       const json = JSON.parse(responseData);
-      console.log("data " + json["data"].translatedText);
       return json["data"].translatedText;
     } catch (e) {
       console.error(e);

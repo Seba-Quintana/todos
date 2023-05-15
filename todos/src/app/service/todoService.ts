@@ -29,8 +29,9 @@ export class todoService {
   }
   
   async deleteCard(card: CardInterface): Promise<boolean> {
-    return (await (await fetch(this.url, {
-      method: 'DELETE',
+    return (await (await fetch(`${this.url}/${card.id}`, {
+      method: 'POST',
+      body:JSON.stringify(card),
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ export class todoService {
   }
 
   async deleteData(list: ListInterface, card: CardInterface) {
-    fetch(`&{this.url}/${list.id}/${card.id}`, {
+    await fetch(`&{this.url}/${list.id}/${card.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
