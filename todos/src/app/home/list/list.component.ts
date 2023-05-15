@@ -19,7 +19,7 @@ import { TranslateListService } from 'src/app/service/translate-list.service';
         <app-card *ngFor="let cardData of list.cards" [card]="cardData"></app-card>
 	  </div>
       <footer>
-      <button  (click)="translate()">Cambiar texto</button>
+      <button id="translate-card" (click)="translate()">Translate List</button>
     	<input id="add-card" type="button" value="+ new card" (click)="postCard()" />
       </footer>
     </div>
