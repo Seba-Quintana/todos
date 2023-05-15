@@ -19,7 +19,7 @@ import { TranslateListService } from 'src/app/service/translate-list.service';
         <app-card *ngFor="let cardData of list.cards" [card]="cardData"></app-card>
 	  </div>
       <footer>
-      <button  (click)="translate()">Cambiar texto</button>
+      <button id="translate" (click)="translate()">translate</button>
     	<input id="add-card" type="button" value="+ new card" (click)="postCard()" />
       </footer>
     </div>
@@ -32,7 +32,7 @@ export class ListComponent {
   constructor(private service: todoService, private serviceTranslate: TranslateListService) {}
 
   titleState = true
-  
+
 
   translate() {
     for (let index = 0; index < this.list.cards.length; index++) {
@@ -43,7 +43,7 @@ export class ListComponent {
       });
     }
   }
-  
+
   postCard() {
     const newCard: CardInterface = { id: 50, title: 'New Card', content: 'New Card Text' };
     this.list.cards.push(newCard);

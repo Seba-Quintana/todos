@@ -13,7 +13,7 @@
   background-color: orange;
 }
 
-#add-list:hover {
+#translate:hover {
   background-color: orange;
 }
 
@@ -58,4 +58,8 @@
   background-color: #2f4f4f;
   outline: 0;
   color: #dfe1e3;
+}
+
+#list-component {
+	width: 200px;
 }
