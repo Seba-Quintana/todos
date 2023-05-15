@@ -21,6 +21,7 @@
 
 #list-component{
   box-shadow: 3px 3px 20px rgba(0, 0, 0, .5);
+	width: 200px;
 }
 
 #list-component-title {
