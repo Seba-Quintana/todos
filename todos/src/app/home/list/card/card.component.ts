@@ -2,6 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListInterface } from 'src/app/interfaces/listInterface';
 import { CardInterface } from 'src/app/interfaces/cardInterface';
+import { todoService } from 'src/app/service/todoService';
 
 @Component({
   selector: 'app-card',
@@ -27,16 +28,11 @@ import { CardInterface } from 'src/app/interfaces/cardInterface';
 export class CardComponent {
   @Input() card!: CardInterface;
 
+  todoService: todoService = inject(todoService);
   state = true;
-  /*  id = "this.card.id";
-    cardText = 'Aa';
 
-    cardTitle = 'aa';*/
-
-  removeCard() {
+  async removeCard() {
     this.state = false;
-    console.log(this.card.id)
+    await this.todoService.deleteCard(this.card);
   }
-
-
 }

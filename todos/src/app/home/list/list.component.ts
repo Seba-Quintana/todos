@@ -12,7 +12,7 @@ import { TranslateListService } from 'src/app/service/translate-list.service';
   template: `
     <div id="list-component">
       <div id="list-component-title">
-        <input type="text" id="list-component-title-text" placeholder="List Title" (focusout)="changeTitleText()" >
+        <input type="text" id="list-component-title-text" placeholder="List Title">
       </div>
 
 	  <div id="card">
@@ -34,11 +34,11 @@ export class ListComponent {
   titleState = true
   
 
-  translate() {
+  async translate() {
     for (let index = 0; index < this.list.cards.length; index++) {
       let contentCard = this.list.cards[index].content;
       let cardId = this.list.cards[index].id;
-      this.serviceTranslate.translateApi(contentCard,cardId).then((data) => {
+      await this.serviceTranslate.translateApi(contentCard,cardId).then((data) => {
         this.list.cards[index].content = data;
       });
     }
@@ -58,12 +58,5 @@ export class ListComponent {
     var aux = !this.changeTitleState
     this.titleState = aux
   }
-
-  changeTitleText() {
-    var a = (<HTMLInputElement>document.getElementById("list-component-title-text")).value;
-
-    console.log(a)
-  }
-
 
 }

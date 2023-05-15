@@ -28,9 +28,6 @@ export class HomeComponent {
   constructor() {
     this.todoService.getAllList().then((data: ListInterface[]) => {
       this.todoLists = data;
-      console.log('Lists: ');
-      console.log(this.todoLists);
-      console.log('');
     });
   }
 
