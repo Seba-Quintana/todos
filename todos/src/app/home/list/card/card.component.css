@@ -1,11 +1,12 @@
 #card-component {
   width: 85%;
-  height: 20%;
+  height: 30%;
   border: 1pt solid black;
   border-radius: 10pt;
   overflow: hidden;
-
   margin: 4%;
+  
+  
 }
 
 #card-component::-webkit-scrollbar {
@@ -21,6 +22,7 @@
 }
 
 #card-component-title {
+  display: flex;
   text-align: justify;
   justify-content: center;
   height: 30pt;
@@ -32,6 +34,7 @@
   text-align: center;
   width: auto;
   height: auto;
+  
 }
 #card-component-body-text {
   padding: 0;
@@ -39,6 +42,8 @@
   min-height: 100pt;
   overflow: auto;
   outline: 0;
+  font-family: 'Droid Serif', serif;
+  background: #c7d1d6
 }
 
 #card-component-remove {

@@ -8,6 +8,8 @@
 
 #add-card {
   width: 100%;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  background: #c7d1d6;
 }
 #add-card:hover {
   background-color: orange;
@@ -15,6 +17,10 @@
 
 #add-list:hover {
   background-color: orange;
+}
+
+#list-component{
+  box-shadow: 3px 3px 20px rgba(0, 0, 0, .5);
 }
 
 #list-component-title {
@@ -58,4 +64,14 @@
   background-color: #2f4f4f;
   outline: 0;
   color: #dfe1e3;
+}
+
+#translate-card{
+  width: 100%;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  background: #c7d1d6;
+}
+
+#translate-card:hover{
+  background-color: orange;
 }
