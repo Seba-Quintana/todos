@@ -13,7 +13,7 @@ import { CardInterface } from '../interfaces/cardInterface';
       <section id="lists">
         <app-list id="list-component" class="app-lists" *ngFor="let listsData of todoLists" [list]="listsData">
         </app-list>
-		<input id="add-list" type="button" value="+ new list"  (click)="createList()"/>
+		    <input id="add-list" type="button" value="+ new list"  (click)="createList()"/>
       </section>
     </div>
   `,
@@ -23,7 +23,6 @@ import { CardInterface } from '../interfaces/cardInterface';
 export class HomeComponent {
   todoService: todoService = inject(todoService);
   todoLists!: ListInterface[];
-  cardsList: CardInterface[] = [];
 
   constructor() {
     this.todoService.getAllList().then((data: ListInterface[]) => {
