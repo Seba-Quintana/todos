@@ -1,7 +1,8 @@
 import express, { Express } from "express";
 import bodyParser from 'body-parser';
-import {CardInterface} from "../interfaces/cardInterface";
-import {ListInterface} from "../interfaces/listInterface";
+import { CardInterface } from "../interfaces/cardInterface";
+import { ListInterface } from "../interfaces/listInterface";
+import { userInterface } from "../interfaces/userinterface";
 
 const app = express();
 const port = 3000;
@@ -13,8 +14,8 @@ app.use(bodyParser.json());
 
 // create cards
 app.post('/card/createCard/:userId/:listId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
+	const userId: string = req.params.userId;
+	const listId: string = req.params.listId;
 
 	const cardTitle = "card";
 	const cardContent = "lorem ipsum";
@@ -31,8 +32,8 @@ app.post('/card/createCard/:userId/:listId', (req, res) => {
 
 // get cards
 app.get('/card/getCard/:userId/:listId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
+	const userId: string = req.params.userId;
+	const listId: string = req.params.listId;
 
 
 	res.send('got card successfully');
@@ -41,8 +42,8 @@ app.get('/card/getCard/:userId/:listId', (req, res) => {
 
 // put cards
 app.put('/card/changeCard/:userId/:listId/:cardId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
+	const userId: string = req.params.userId;
+	const listId: string = req.params.listId;
 
 
 	res.send('card is changed');
@@ -51,8 +52,8 @@ app.put('/card/changeCard/:userId/:listId/:cardId', (req, res) => {
 
 // delete cards
 app.delete('/card/deleteCard/:userId/:listId/:cardId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
+	const userId: string = req.params.userId;
+	const listId: string = req.params.cardId;
 
 
 	res.send('card is deleted');
@@ -60,42 +61,42 @@ app.delete('/card/deleteCard/:userId/:listId/:cardId', (req, res) => {
 });
 
 //lista
-app.post('/list/createlist/:iduser/:name', (req,res ) => {
-    const iduser: number = req.params.iduser;
-    const name:string = req.params.name;
-    const newlist: ListInterface={
-        id: number,
-        name:string,
-        cards: CardInterface[],
-     }
+app.post('/list/createlist/:iduser/:name', (req, res) => {
+	const iduser: string = req.params.iduser;
+	const name: string = req.params.name;
+	const newlist: ListInterface = {
+		id: number = 0,
+		name: string = "",
+		cards: Array<CardInterface[]>,
+	}
 
 
 })
 
-app.delete('/list/deleteList/:iduser/:idlist', (req,res) =>{
+app.delete('/list/deleteList/:iduser/:idlist', (req, res) => {
 
-    const iduser: number = req.params.iduser;
-    const idlist: number = req.params.idlist;
-    //this.list.remove(idlist)
+	const iduser: string = req.params.iduser;
+	const idlist: string = req.params.idlist;
+	//this.list.remove(idlist)
 })
 
-app.patch('/list/updateList/:iduser/:idlist' ,(req, res) =>{
-    const iduser: number = req.params.iduser;
-    const idlist: number = req.params.idlist;
+app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
+	const iduser: string = req.params.iduser;
+	const idlist: string = req.params.idlist;
 
-    var listNewName : string = req.query.listName
+	var listNewName: string = req.query.listName
 
-    var selectedList : ListInterface = this.lists.find(idlist);
+	var selectedList: ListInterface = this.lists.find(idlist);
 
-    selectedList.name = listNewName;
+	selectedList.name = listNewName;
 
 })
 
 
 
-app.get('/user/getusers', (req,res)=>{
-    const userList:userinterface = [];
-    const res = userList;
+app.get('/user/getusers', (req, res) => {
+	const userList: userinterface = [];
+	const res = userList;
 })
 
 
