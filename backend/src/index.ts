@@ -39,7 +39,7 @@ app.post("/card/createCard/:userId/:listId", (req, res) => {
     content: cardContent,
   };
 
-  let cardList = lista.filter((x) => x.id == listId)[0];
+  let cardList = lista.filter((x) => x.id == parseInt(listId))[0];
   cardList.cards.push(card);
   res.send("card is created");
 
@@ -51,7 +51,7 @@ app.get("/card/getCard/:userId/:listId", (req, res) => {
   const userId: string = req.params.userId;
   const listId: string = req.params.listId;
 
-  let cardList = lista.filter((x) => x.id == listId)[0];
+  let cardList = lista.filter((x) => x.id == parseInt(listId))[0];
 
   res.send(cardList);
 });
@@ -62,21 +62,41 @@ app.put("/card/changeCard/:userId/:listId/:cardId", (req, res) => {
   const listId: string = req.params.listId;
   const cardId: string = req.params.cardId;
 
-  let cardList=  lista.filter(x => x.id == listId)[0];	
+  const title: string = req.query.cardTitle;
+  const content: string = req.query.cardContent;
 
-  let selectedCard = cardList.cards.filter(x => x.id == cardId)[0];
-  cardList.cards.push(card)
+  let cardList = lista.filter((x) => x.id == parseInt(listId))[0];
+  let selectedCard = cardList.cards.filter((x) => x.id == parseInt(cardId))[0];
 
-  res.send('card is changed');
+  if (selectedCard != null) {
+    selectedCard.content = content;
+    selectedCard.title = title;
+
+    res.status(200).send("card Changed");
+  } else {
+    res.status(404).send("card not found");
+  }
 });
 
 // delete cards
 app.delete("/card/deleteCard/:userId/:listId/:cardId", (req, res) => {
   const userId: string = req.params.userId;
   const listId: string = req.params.cardId;
+  const cardId: string = req.params.cardId;
 
-  res.send("card is deleted");
-  // res.status(404).send('user not found');
+  let cardList = lista.filter((x) => x.id == parseInt(listId))[0];
+  let selectedCard = cardList.cards.filter((x) => x.id == parseInt(cardId))[0];
+
+  if (selectedCard != null) {
+    const index = cardList.cards.indexOf(selectedCard, 0);
+
+    if (index > -1) {
+      cardList.cards.splice(index, 1);
+    }
+    res.status(200).send("card removed");
+  } else {
+    res.status(404).send("card not found");
+  }
 });
 
 //lista
