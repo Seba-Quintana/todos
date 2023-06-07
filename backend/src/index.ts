@@ -11,6 +11,26 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
+var lista : ListInterface[] = [
+
+	{
+		id:0,
+		name: "lista 1",
+		cards:[
+		{
+			id:0,
+			title: "titulo",
+			content: "sadfdsaf"
+		}
+		]
+
+	}
+]
+
+
+
+
 // create cards
 app.post('/card/createCard/:userId/:listId', (req, res) => {
 	const userId: number = req.params.idUser;
@@ -25,8 +45,11 @@ app.post('/card/createCard/:userId/:listId', (req, res) => {
 		content: cardContent
 	};
 
+
+	let cardList=  lista.filter(x => x.id == listId)[0];	
+	cardList.cards.push(card)
 	res.send('card is created');
-	// res.status(404).send('user not found');
+
 });
 
 // get cards
@@ -34,19 +57,24 @@ app.get('/card/getCard/:userId/:listId', (req, res) => {
 	const userId: number = req.params.idUser;
 	const listId: number = req.params.idList;
 
+	let cardList=  lista.filter(x => x.id == listId)[0];	
 
-	res.send('got card successfully');
-	// res.status(404).send('user not found');
+	res.send(cardList);
 });
 
 // put cards
 app.put('/card/changeCard/:userId/:listId/:cardId', (req, res) => {
 	const userId: number = req.params.idUser;
 	const listId: number = req.params.idList;
+	const cardId: string = req.params.cardId;
 
+	let cardList=  lista.filter(x => x.id == listId)[0];	
+
+	let selectedCard = cardList.cards.filter(x => x.id == cardId)[0];
+	cardList.cards.push(card)
+	res.send('card is created');
 
 	res.send('card is changed');
-	// res.status(404).send('user not found');
 });
 
 // delete cards
@@ -68,6 +96,9 @@ app.post('/list/createlist/:iduser/:name', (req,res ) => {
         name:string,
         cards: CardInterface[],
      }
+
+	 lista.
+	 
 
 
 })
