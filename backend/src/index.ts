@@ -65,9 +65,13 @@ app.post('/list/createlist/:iduser/:name', (req, res) => {
 	const iduser: string = req.params.iduser;
 	const name: string = req.params.name;
 	const newlist: ListInterface = {
-		id: number = 0,
-		name: string = "",
-		cards: Array<CardInterface[]>,
+		id: 1,
+		name: "new list",
+		cards: [{
+			id: 1,
+			title:"new card",
+			content: "content to the card",
+		}]
 	}
 
 
@@ -84,7 +88,7 @@ app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
 	const iduser: string = req.params.iduser;
 	const idlist: string = req.params.idlist;
 
-	var listNewName: string = req.query.listName
+	const listNewName = req.query.listName;
 
 	var selectedList: ListInterface = this.lists.find(idlist);
 
@@ -94,11 +98,10 @@ app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
 
 
 
-app.get('/user/getusers', (req, res) => {
-	const userList: userinterface = [];
-	const res = userList;
-})
-
+// app.get('/user/getusers', (req, res) => {
+// 	const userList: userInterface = [];
+// 	const res = userList;
+// })
 
 
 app.listen(port);
