@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import bodyParser from 'body-parser';
 import {CardInterface} from "../interfaces/cardInterface";
+import {ListInterface} from "../interfaces/listInterface";
 
 const app = express();
 const port = 3000;
@@ -57,5 +58,46 @@ app.delete('/card/deleteCard/:userId/:listId/:cardId', (req, res) => {
 	res.send('card is deleted');
 	// res.status(404).send('user not found');
 });
+
+//lista
+app.post('/list/createlist/:iduser/:name', (req,res ) => {
+    const iduser: number = req.params.iduser;
+    const name:string = req.params.name;
+    const newlist: ListInterface={
+        id: number,
+        name:string,
+        cards: CardInterface[],
+     }
+
+
+})
+
+app.delete('/list/deleteList/:iduser/:idlist', (req,res) =>{
+
+    const iduser: number = req.params.iduser;
+    const idlist: number = req.params.idlist;
+    //this.list.remove(idlist)
+})
+
+app.patch('/list/updateList/:iduser/:idlist' ,(req, res) =>{
+    const iduser: number = req.params.iduser;
+    const idlist: number = req.params.idlist;
+
+    var listNewName : string = req.query.listName
+
+    var selectedList : ListInterface = this.lists.find(idlist);
+
+    selectedList.name = listNewName;
+
+})
+
+
+
+app.get('/user/getusers', (req,res)=>{
+    const userList:userinterface = [];
+    const res = userList;
+})
+
+
 
 app.listen(port);
