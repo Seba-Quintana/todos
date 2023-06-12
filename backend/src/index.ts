@@ -1,5 +1,8 @@
 import express, { Express } from "express";
 import bodyParser from "body-parser";
+
+// get MongoDB driver connection
+
 import { CardInterface } from "../interfaces/cardInterface";
 import { ListInterface } from "../interfaces/listInterface";
 import { userInterface } from "../interfaces/userinterface";
@@ -27,6 +30,7 @@ var lista: ListInterface[] = [
 
 // create cards
 app.post("/card/createCard/:userId/:listId", (req, res) => {
+
   const userId: string = req.params.userId;
   const listId: string = req.params.listId;
 
@@ -131,5 +135,10 @@ app.get("/user/getusers", (req, res) => {
   const userList: userinterface = [];
   const res = userList;
 });
+
+
+
+
+
 
 app.listen(port);
