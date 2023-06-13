@@ -3,9 +3,12 @@ import bodyParser from 'body-parser';
 import { CardInterface } from "../interfaces/cardInterface";
 import { ListInterface } from "../interfaces/listInterface";
 import { userInterface } from "../interfaces/userinterface";
+import Database from "./database/database";
 
 const app = express();
 const port = 3000;
+
+const database = new Database();
 
 
 // Configuring body parser middleware
@@ -17,25 +20,32 @@ app.post('/card/createCard/:userId/:listId', (req, res) => {
 	const userId: string = req.params.userId;
 	const listId: string = req.params.listId;
 
-	const cardTitle = "card";
-	const cardContent = "lorem ipsum";
+	const cardId = req.body.cardId;
+	const cardTitle = req.body.cardTitle;
+	const cardContent = req.body.cardContent;
 
 	const card: CardInterface = {
-		id: 0,
+		id: cardId,
 		title: cardTitle,
 		content: cardContent
 	};
+	
+	const result = database.createCard(card);
+	if(result){
+        res.status(200).json(result);
+	}
 
-	res.send('card is created');
-	// res.status(404).send('user not found');
+
 });
 
-// get cards
-app.get('/card/getCard/:userId/:listId', (req, res) => {
-	const userId: string = req.params.userId;
-	const listId: string = req.params.listId;
+// get card
+app.get('/card/getCard/:cardId', (req, res) => {
+	const cardId: string = req.params.cardId;
 
-
+	const result = database.getCard(cardId);
+	if(result){
+        res.status(200).json(result);
+	}
 	res.send('got card successfully');
 	// res.status(404).send('user not found');
 });
@@ -60,7 +70,7 @@ app.delete('/card/deleteCard/:userId/:listId/:cardId', (req, res) => {
 	// res.status(404).send('user not found');
 });
 
-//lista
+// lista
 app.post('/list/createlist/:iduser/:name', (req, res) => {
 	const iduser: string = req.params.iduser;
 	const name: string = req.params.name;
@@ -69,7 +79,7 @@ app.post('/list/createlist/:iduser/:name', (req, res) => {
 		name: "new list",
 		cards: [{
 			id: 1,
-			title:"new card",
+			title: "new card",
 			content: "content to the card",
 		}]
 	}
@@ -81,7 +91,7 @@ app.delete('/list/deleteList/:iduser/:idlist', (req, res) => {
 
 	const iduser: string = req.params.iduser;
 	const idlist: string = req.params.idlist;
-	//this.list.remove(idlist)
+	// this.list.remove(idlist)
 })
 
 app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
@@ -90,18 +100,9 @@ app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
 
 	const listNewName = req.query.listName;
 
-	var selectedList: ListInterface = this.lists.find(idlist);
 
-	selectedList.name = listNewName;
 
 })
-
-
-
-// app.get('/user/getusers', (req, res) => {
-// 	const userList: userInterface = [];
-// 	const res = userList;
-// })
 
 
 app.listen(port);
