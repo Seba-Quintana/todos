@@ -25,3 +25,8 @@ input {
 input:hover {
   background-color: orange;
 }
+
+#login-component {
+  width: 55%;
+  height: 50%;
+}

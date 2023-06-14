@@ -34,7 +34,7 @@ export class HomeComponent {
 
 
   createList() {
-    const newList: ListInterface = { id: this.todoLists.length + 1, name: "List Title", cards: [] };
+    const newList: ListInterface = { id: 1, name: "List Title", cards: [] };
     this.todoLists.push(newList);
 
 
