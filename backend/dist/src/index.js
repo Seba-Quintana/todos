@@ -16,19 +16,26 @@ app.use(body_parser_1.default.json());
 app.post('/card/createCard/:userId/:listId', (req, res) => {
     const userId = req.params.userId;
     const listId = req.params.listId;
+    const cardId = req.body.cardId;
     const cardTitle = req.body.cardTitle;
     const cardContent = req.body.cardContent;
     const card = {
-        id: 0,
+        id: cardId,
         title: cardTitle,
         content: cardContent
     };
-    database.createCard(card);
+    const result = database.createCard(card);
+    if (result) {
+        res.status(200).json(result);
+    }
 });
-// get cards
-app.get('/card/getCard/:userId/:listId', (req, res) => {
-    const userId = req.params.userId;
-    const listId = req.params.listId;
+// get card
+app.get('/card/getCard/:cardId', (req, res) => {
+    const cardId = req.params.cardId;
+    const result = database.getCard(cardId);
+    if (result) {
+        res.status(200).json(result);
+    }
     res.send('got card successfully');
     // res.status(404).send('user not found');
 });

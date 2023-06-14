@@ -14,7 +14,6 @@ class Database {
     constructor() {
         this.connectionString = "mongodb+srv://lucasgiffuni:Pass12345@cluster0.7cpgmrl.mongodb.net/?retryWrites=true&w=majority";
         this.client = new mongodb_1.MongoClient(this.connectionString);
-        this.connection = new mongodb_1.Db(null, null, null);
         this.connect();
     }
     connect() {
@@ -31,10 +30,25 @@ class Database {
     }
     createCard(card) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.connect();
             const collection = yield this.connection.collection("cards");
             const newDocument = card;
             const result = yield collection.insertOne(newDocument);
             return result;
+        });
+    }
+    getCard(cardId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.connect();
+            const collection = yield this.connection.collection("cards");
+            let query = { id: new mongodb_1.ObjectId(1) };
+            let result = yield collection.findOne(query);
+            if (!result) {
+                return "Not Found";
+            }
+            else {
+                return result;
+            }
         });
     }
 }
