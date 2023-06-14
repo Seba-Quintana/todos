@@ -1,9 +1,12 @@
 {
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node"
+      },
     "compilerOptions": {
+        "target": "es6",
         "module": "commonjs",
         "esModuleInterop": true,
-        "target": "es6",
-        "noImplicitAny": true,
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist",
@@ -16,5 +19,5 @@
     },
     "include": [
         "src/**/*"
-    ]
+, "src/config/config.ts"    ]
 }

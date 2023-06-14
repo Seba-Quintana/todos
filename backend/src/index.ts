@@ -1,10 +1,14 @@
 import express, { Express } from "express";
 import bodyParser from 'body-parser';
-import {CardInterface} from "../interfaces/cardInterface";
-import {ListInterface} from "../interfaces/listInterface";
+import { CardInterface } from "../interfaces/cardInterface";
+import { ListInterface } from "../interfaces/listInterface";
+import { userInterface } from "../interfaces/userinterface";
+import Database from "./database/database";
 
 const app = express();
 const port = 3000;
+
+const database = new Database();
 
 
 // Configuring body parser middleware
@@ -13,91 +17,127 @@ app.use(bodyParser.json());
 
 // create cards
 app.post('/card/createCard/:userId/:listId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
+	const userId: string = req.params.userId;
+	const listId: string = req.params.listId;
 
-	const cardTitle = "card";
-	const cardContent = "lorem ipsum";
+	const cardId = req.body.cardId;
+	const cardTitle = req.body.cardTitle;
+	const cardContent = req.body.cardContent;
 
 	const card: CardInterface = {
-		id: 0,
+		id: cardId,
 		title: cardTitle,
-		content: cardContent
+		content: cardContent,
+		listId: listId
 	};
 
-	res.send('card is created');
-	// res.status(404).send('user not found');
+	const result = database.createCard(card);
+	if (result) {
+		res.status(200).json(result);
+	} else {
+		res.status(500).json("Error");
+	}
+
+
 });
 
-// get cards
-app.get('/card/getCard/:userId/:listId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
+// get card
+app.get('/card/getCard/:listId/:cardId', (req, res) => {
+	const cardId: string = req.params.cardId;
+	const listId: string = req.params.listId;
 
-
-	res.send('got card successfully');
-	// res.status(404).send('user not found');
+	const result = database.getCard(cardId);
+	if (result) {
+		res.status(200).json(result);
+	} else {
+		res.status(500).json("Error");
+	}
 });
 
-// put cards
-app.put('/card/changeCard/:userId/:listId/:cardId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
-
-
-	res.send('card is changed');
-	// res.status(404).send('user not found');
-});
 
 // delete cards
 app.delete('/card/deleteCard/:userId/:listId/:cardId', (req, res) => {
-	const userId: number = req.params.idUser;
-	const listId: number = req.params.idList;
+	const userId: string = req.params.userId;
+	const listId: string = req.params.listId;
+	const cardId: string = req.params.cardId;
 
-
-	res.send('card is deleted');
-	// res.status(404).send('user not found');
+	const result = database.deleteCard(cardId);
+	if (result) {
+		res.status(200).json(result);
+	} else {
+		res.status(500).json("Error");
+	}
 });
 
-//lista
-app.post('/list/createlist/:iduser/:name', (req,res ) => {
-    const iduser: number = req.params.iduser;
-    const name:string = req.params.name;
-    const newlist: ListInterface={
-        id: number,
-        name:string,
-        cards: CardInterface[],
-     }
+// lista
+app.post('/list/createlist/:iduser', (req, res) => {
+	const iduser = req.params.iduser;
+	const idList = "1";
+	const newlist: ListInterface = {
+		id: 1,
+		name: "new list",
+		userId: iduser,
+		cards: [{
+			id: 1,
+			title: "new card",
+			content: "content to the card",
+			listId: idList
+		}]
+	}
 
+	const result = database.createList(newlist);
 
-})
-
-app.delete('/list/deleteList/:iduser/:idlist', (req,res) =>{
-
-    const iduser: number = req.params.iduser;
-    const idlist: number = req.params.idlist;
-    //this.list.remove(idlist)
-})
-
-app.patch('/list/updateList/:iduser/:idlist' ,(req, res) =>{
-    const iduser: number = req.params.iduser;
-    const idlist: number = req.params.idlist;
-
-    var listNewName : string = req.query.listName
-
-    var selectedList : ListInterface = this.lists.find(idlist);
-
-    selectedList.name = listNewName;
+	if (result) {
+		res.status(200).json(result);
+	} else {
+		res.status(500).json("Error");
+	}
 
 })
 
+app.get('/list/getLists/:userId/:listId', (req, res) => {
+	const userId: string = req.params.userId;
+	const listId: string = req.params.listId;
 
+	const result = database.getList(listId, userId);
+	if (result) {
+		res.status(200).json(result);
+	} else {
+		res.status(500).json("Error");
+	}
+});
+app.delete('/list/deleteList/:iduser/:idlist', (req, res) => {
 
-app.get('/user/getusers', (req,res)=>{
-    const userList:userinterface = [];
-    const res = userList;
+	const iduser: string = req.params.iduser;
+	const idlist: string = req.params.idlist;
+
+	const result = database.deleteList(idlist, iduser);
+	if (result) {
+		res.status(200).json(result);
+	} else {
+		res.status(500).json("Error");
+	}
 })
 
+app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
+	const iduser: string = req.params.iduser;
+	const idlist: string = req.params.idlist;
+
+	const listNewName = req.query.listName as string;
+	const newlist: ListInterface = {
+		id: 1,
+		name: listNewName,
+		userId: iduser,
+		cards: []
+	}
+	const result = database.updateList(newlist);
+	if (result) {
+		res.status(200).json(result);
+	} else {
+		res.status(500).json("Error");
+	}
+
+})
 
 
 app.listen(port);
