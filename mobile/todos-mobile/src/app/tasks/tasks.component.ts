@@ -2,12 +2,14 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { CardInterface } from '../interfaces/CardInterface';
 
 import { TodoServiceService } from '../services/todo-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
-  standalone:true
+  standalone:true,
+  imports:[CommonModule]
 })
 export class TasksComponent  implements OnInit {
 
