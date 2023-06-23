@@ -24,6 +24,8 @@ export class TasksComponent  implements OnInit {
 
   async removeCard() {
     this.state = false;
+
+    this.todoService.deleteCard(this.card);
   }
 
 }

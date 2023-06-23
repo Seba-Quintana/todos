@@ -36,9 +36,11 @@ export class Tab1Page {
 
 
   addTask(){
-    const newCard: CardInterface = { id: this.cardList.length+1, title: 'New Card', content: 'New Card Text' };
+    const newCard: CardInterface = { id: this.cardList.length+1, title: 'Card ' +(this.cardList.length+1), content: 'New Card Text' };
     this.cardList.push(newCard);
     this.todoService.postCard(newCard);
 
   }
+
+  
 }

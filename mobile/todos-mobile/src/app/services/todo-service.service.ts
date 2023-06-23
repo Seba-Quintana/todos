@@ -10,6 +10,8 @@ export class TodoServiceService {
   constructor() { }
 
   async postCard(card: CardInterface) {
+
+    console.log(card)
     return ((await fetch(`${this.url}/card/putCard/${card.id}`, {
       method: 'POST',
       body: JSON.stringify(card),
@@ -21,9 +23,8 @@ export class TodoServiceService {
   }
   
   async deleteCard(card: CardInterface): Promise<boolean> {
-    return (await (await fetch(`${this.url}/${card.id}`, {
+    return (await (await fetch(`${this.url}/card/deleteCard/${card.id}`, {
       method: 'POST',
-      body:JSON.stringify(card),
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

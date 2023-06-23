@@ -71,7 +71,7 @@ export default class Database {
     this.connect();
     const query = { _id: new ObjectId(cardId) };
 
-    const collection = this.connection.collection("posts");
+    const collection = this.connection.collection("cards");
     let result = await collection.deleteOne(query);
 
     if (!result) {

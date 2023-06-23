@@ -53,9 +53,7 @@ app.get("/card/getCard/:listId/:cardId", (req, res) => {
 });
 
 // delete cards
-app.delete("/card/deleteCard/:userId/:listId/:cardId", (req, res) => {
-  const userId: string = req.params.userId;
-  const listId: string = req.params.listId;
+app.post("/card/deleteCard/:cardId", (req, res) => {
   const cardId: string = req.params.cardId;
 
   const result = database.deleteCard(cardId);
