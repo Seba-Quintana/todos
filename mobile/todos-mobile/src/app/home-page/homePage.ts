@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { TasksComponent } from '../tasks/tasks.component';
 import { CardInterface } from '../interfaces/CardInterface';
 import { CommonModule } from '@angular/common';
+import { TodoServiceService } from '../services/todo-service.service';
 
 @Component({
   selector: 'app-tab1',
@@ -18,64 +19,26 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class Tab1Page {
-  constructor() {}
+ 
 
-  cards: CardInterface[] = [
-    {
-      id: 0,
-      title: 'card',
-      content: 'a',
-    },
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
+  cardList!: CardInterface[];
 
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
 
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
+  todoService: TodoServiceService = inject(TodoServiceService);
+  constructor() {
+    this.todoService.getAllCards().then((data: CardInterface[]) => {
+      this.cardList = data;
 
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
-    {
-      id: 1,
-      title: 'card 2',
-      content: 'b',
-    },
+      console.log("Response: " + data)
+    });
+  }
 
-  ];
 
 
   addTask(){
-    const newCard: CardInterface = { id: 50, title: 'New Card', content: 'New Card Text' };
-    this.cards.push(newCard);
+    const newCard: CardInterface = { id: this.cardList.length+1, title: 'New Card', content: 'New Card Text' };
+    this.cardList.push(newCard);
+    this.todoService.postCard(newCard);
 
   }
 }

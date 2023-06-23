@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser from 'body-parser';
+import bodyParser from "body-parser";
 import Database from "./database/database";
 const app = express();
 const port = 3000;
@@ -8,7 +8,7 @@ const database = new Database();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // create cards
-app.post('/card/createCard/:userId/:listId', (req, res) => {
+app.post("/card/createCard/:userId/:listId", (req, res) => {
     const userId = req.params.userId;
     const listId = req.params.listId;
     const cardId = req.body.cardId;
@@ -18,7 +18,7 @@ app.post('/card/createCard/:userId/:listId', (req, res) => {
         id: cardId,
         title: cardTitle,
         content: cardContent,
-        listId: listId
+        listId: listId,
     };
     const result = database.createCard(card);
     if (result) {
@@ -29,9 +29,8 @@ app.post('/card/createCard/:userId/:listId', (req, res) => {
     }
 });
 // get card
-app.get('/card/getCard/:listId/:cardId', (req, res) => {
+app.get("/card/getCard/:listId/:cardId", (req, res) => {
     const cardId = req.params.cardId;
-    const listId = req.params.listId;
     const result = database.getCard(cardId);
     if (result) {
         res.status(200).json(result);
@@ -41,7 +40,7 @@ app.get('/card/getCard/:listId/:cardId', (req, res) => {
     }
 });
 // delete cards
-app.delete('/card/deleteCard/:userId/:listId/:cardId', (req, res) => {
+app.delete("/card/deleteCard/:userId/:listId/:cardId", (req, res) => {
     const userId = req.params.userId;
     const listId = req.params.listId;
     const cardId = req.params.cardId;
@@ -54,19 +53,21 @@ app.delete('/card/deleteCard/:userId/:listId/:cardId', (req, res) => {
     }
 });
 // lista
-app.post('/list/createlist/:iduser', (req, res) => {
+app.post("/list/createlist/:iduser", (req, res) => {
     const iduser = req.params.iduser;
     const idList = "1";
     const newlist = {
         id: 1,
         name: "new list",
         userId: iduser,
-        cards: [{
+        cards: [
+            {
                 id: 1,
                 title: "new card",
                 content: "content to the card",
-                listId: idList
-            }]
+                listId: idList,
+            },
+        ],
     };
     const result = database.createList(newlist);
     if (result) {
@@ -76,7 +77,7 @@ app.post('/list/createlist/:iduser', (req, res) => {
         res.status(500).json("Error");
     }
 });
-app.get('/list/getLists/:userId/:listId', (req, res) => {
+app.get("/list/getLists/:userId/:listId", (req, res) => {
     const userId = req.params.userId;
     const listId = req.params.listId;
     const result = database.getList(listId, userId);
@@ -87,7 +88,16 @@ app.get('/list/getLists/:userId/:listId', (req, res) => {
         res.status(500).json("Error");
     }
 });
-app.delete('/list/deleteList/:iduser/:idlist', (req, res) => {
+app.get("/card/getCards", (req, res) => {
+    const result = database.getCards("1");
+    if (result) {
+        res.status(200).json(result);
+    }
+    else {
+        res.status(500).json("Error");
+    }
+});
+app.delete("/list/deleteList/:iduser/:idlist", (req, res) => {
     const iduser = req.params.iduser;
     const idlist = req.params.idlist;
     const result = database.deleteList(idlist, iduser);
@@ -98,7 +108,7 @@ app.delete('/list/deleteList/:iduser/:idlist', (req, res) => {
         res.status(500).json("Error");
     }
 });
-app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
+app.patch("/list/updateList/:iduser/:idlist", (req, res) => {
     const iduser = req.params.iduser;
     const idlist = req.params.idlist;
     const listNewName = req.query.listName;
@@ -106,7 +116,7 @@ app.patch('/list/updateList/:iduser/:idlist', (req, res) => {
         id: 1,
         name: listNewName,
         userId: iduser,
-        cards: []
+        cards: [],
     };
     const result = database.updateList(newlist);
     if (result) {

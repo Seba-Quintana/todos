@@ -19,6 +19,7 @@ export default class Database {
             let conn;
             try {
                 conn = yield this.client.connect();
+                console.log("Connected");
             }
             catch (error) {
                 console.error(`Error connecting to database: ${JSON.stringify(error)}`);
@@ -57,8 +58,8 @@ export default class Database {
                     id: card.id,
                     title: card.title,
                     content: card.content,
-                    listId: card.listId
-                }
+                    listId: card.listId,
+                },
             };
             let collection = yield this.connection.collection("cards");
             let result = yield collection.updateOne(query, updates);
@@ -99,7 +100,7 @@ export default class Database {
             const collection = yield this.connection.collection("lists");
             const query = {
                 id: new ObjectId(listId),
-                userId: new ObjectId(userId)
+                userId: new ObjectId(userId),
             };
             let result = yield collection.findOne(query);
             if (!result) {
@@ -110,12 +111,21 @@ export default class Database {
             }
         });
     }
+    getCards(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.connect();
+            const collection = yield this.connection.collection("cards");
+            let results = yield collection.find({}).limit(50).toArray();
+            console.log(results);
+            return results;
+        });
+    }
     deleteList(listId, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             this.connect();
             const query = {
                 id: new ObjectId(listId),
-                userId: new ObjectId(userId)
+                userId: new ObjectId(userId),
             };
             const collection = this.connection.collection("lists");
             let result = yield collection.deleteOne(query);
@@ -133,8 +143,8 @@ export default class Database {
             const updates = {
                 $push: {
                     id: list.id,
-                    name: list.name
-                }
+                    name: list.name,
+                },
             };
             let collection = yield this.connection.collection("lists");
             let result = yield collection.updateOne(query, updates);
