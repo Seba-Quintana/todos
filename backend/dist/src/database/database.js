@@ -19,7 +19,6 @@ export default class Database {
             let conn;
             try {
                 conn = yield this.client.connect();
-                console.log("Connected");
             }
             catch (error) {
                 console.error(`Error connecting to database: ${JSON.stringify(error)}`);
@@ -75,7 +74,7 @@ export default class Database {
         return __awaiter(this, void 0, void 0, function* () {
             this.connect();
             const query = { _id: new ObjectId(cardId) };
-            const collection = this.connection.collection("posts");
+            const collection = this.connection.collection("cards");
             let result = yield collection.deleteOne(query);
             if (!result) {
                 return "Card Not Found";
@@ -116,7 +115,6 @@ export default class Database {
             this.connect();
             const collection = yield this.connection.collection("cards");
             let results = yield collection.find({}).limit(50).toArray();
-            console.log(results);
             return results;
         });
     }
